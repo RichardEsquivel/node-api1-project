@@ -149,4 +149,4 @@ Create a new React application and connect it to your server:
 - connect to the `/api/users` endpoint in the API and show the list of users.
 - add a delete button to each displayed user that will remove it from the server.
 - add forms to add and update data.
-- Style the list of users however you see fit.
+- Style the list of users however you see fit..
