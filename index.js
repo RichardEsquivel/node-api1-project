@@ -107,7 +107,7 @@ server.put('/api/users/:id', (req, res) => {
 			if (success) {
 				db.findById(id)
 					.then(user => res.status(200).json(user))
-					.catch(errorr => {
+					.catch(error => {
 						console.log(error);
 						res.status(500).json({ error: "The user information could not be modified." })
 					})
