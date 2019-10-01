@@ -31,6 +31,7 @@ server.post('/api/users', (req, res) => {
 	console.log(req.body);
 	//save user into a variable and destructure to do a check for both fields name and bio and if not present return code 400 Bad Request with error message
 	const { name, bio } = req.body;
+	const user = req.body;
 	if (!name || !bio) {
 		res.status(400).json({ error: "Please provide name and bio for the user." })
 	}
