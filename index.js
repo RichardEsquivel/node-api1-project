@@ -83,15 +83,21 @@ server.get('/api/users/:id', (req, res) => {
 server.delete('/api/users/:id', (req, res) => {
 	//destructure id out of the req.params object for ease of reference
 	const { id } = req.params;
-	db.remove(id)
-		//204 indicates no content to be returned from this request, will return a truthy value if an id is found
-		.then((success) => {
-			if (success) {
-				res.status(204).end();
-			} else {
-				res.status(404).json({ error: "The user with the specified ID does not exist." });
-			}
+	db.findById(id)
+		.then(user => {
+			db.remove(id).then(success => {
+				res.status(200).json({ success: `Success removed a total of : ${success} users(s).`, user: user })
+			})
 		})
+		// db.remove(id)
+		// 	//204 indicates no content to be returned from this request, will return a truthy value if an id is found
+		// 	.then((success) => {
+		// 		if (success) {
+		// 			res.status(204).end();
+		// 		} else {
+		// 			res.status(404).json({ error: "The user with the specified ID does not exist." });
+		// 		}
+		// 	})
 		.catch(error => {
 			res.status(500).json({ error: "The user could not be removed." });
 		})
