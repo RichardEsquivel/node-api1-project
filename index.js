@@ -94,7 +94,7 @@ server.delete('/api/users/:id', (req, res) => {
 		//204 indicates no content to be returned from this request, will return a truthy value if an id is found
 		.then((success) => {
 			if (success) {
-				res.status(204).end();
+				res.status(200).json({ Success: `The specified user ${id} was deleted` });
 			} else {
 				res.status(404).json({ error: "The user with the specified ID does not exist." });
 			}
