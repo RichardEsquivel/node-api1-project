@@ -10,6 +10,8 @@ const server = express();
 //Allow express to interpret json using middleware to go between express receiving request and the processing of it, it will check if content is in json format and if so will parse the body into a javascript object and place into the request
 server.use(express.json());
 
+server.use(cors());
+
 //get all users from provided route, 2nd argument to .get is callback function with 2 arguments req object and response object. req comes with req and response is specified response, 
 server.get('/api/users', (req, res) => {
 	//within db there is a find function we will use to return db of users
