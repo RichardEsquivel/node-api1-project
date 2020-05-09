@@ -10,6 +10,7 @@ const server = express();
 //Allow express to interpret json using middleware to go between express receiving request and the processing of it, it will check if content is in json format and if so will parse the body into a javascript object and place into the request
 server.use(express.json());
 
+
 //get all users from provided route, 2nd argument to .get is callback function with 2 arguments req object and response object. req comes with req and response is specified response, 
 server.get('/api/users', (req, res) => {
 	//within db there is a find function we will use to return db of users
@@ -83,11 +84,17 @@ server.get('/api/users/:id', (req, res) => {
 server.delete('/api/users/:id', (req, res) => {
 	//destructure id out of the req.params object for ease of reference
 	const { id } = req.params;
+	db.findById(id)
+		.then(user => {
+			db.remove(id).then(success => {
+				res.status(200).json({ success: `Success removed a total of : ${success} user(s).`, user: user })
+			})
+		})
 	db.remove(id)
 		//204 indicates no content to be returned from this request, will return a truthy value if an id is found
 		.then((success) => {
 			if (success) {
-				res.status(204).end();
+				res.status(200).json({ Success: `The specified user ${id} was deleted` });
 			} else {
 				res.status(404).json({ error: "The user with the specified ID does not exist." });
 			}
